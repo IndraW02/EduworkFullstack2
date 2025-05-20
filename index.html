@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Daftar Produk</title>
+    <style>
+      .product {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 10px;
+        margin: 10px;
+        width: 200px;
+      }
+      .product img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+      }
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Daftar Produk</h2>
+    <select id="filterKategori" onchange="tampilkanProduk()">
+      <option value="semua">Semua Kategori</option>
+      <option value="elektronik">Elektronik</option>
+      <option value="fashion">Fashion</option>
+    </select>
+
+    <div class="container" id="daftarProduk"></div>
+
+    <script>
+      const produk = [
+        {
+          nama: "Smartphone",
+          harga: 2500000,
+          deskripsi: "HP Android 6GB RAM",
+          gambar: "https://via.placeholder.com/200",
+          kategori: "elektronik",
+        },
+        {
+          nama: "Kaos Polos",
+          harga: 50000,
+          deskripsi: "Kaos bahan katun nyaman",
+          gambar: "https://via.placeholder.com/200",
+          kategori: "fashion",
+        },
+        {
+          nama: "Laptop",
+          harga: 7500000,
+          deskripsi: "Laptop untuk kerja & gaming",
+          gambar: "https://via.placeholder.com/200",
+          kategori: "elektronik",
+        },
+      ];
+
+      function tampilkanProduk() {
+        const kategoriDipilih = document.getElementById("filterKategori").value;
+        const container = document.getElementById("daftarProduk");
+        container.innerHTML = "";
+
+        const produkDitampilkan =
+          kategoriDipilih === "semua"
+            ? produk
+            : produk.filter((p) => p.kategori === kategoriDipilih);
+
+        produkDitampilkan.forEach((p) => {
+          container.innerHTML += `
+        <div class="product">
+          <img src="${p.gambar}" alt="${p.nama}" />
+          <h4>${p.nama}</h4>
+          <p>${p.deskripsi}</p>
+          <p><strong>Rp${p.harga.toLocaleString()}</strong></p>
+        </div>
+      `;
+        });
+      }
+
+      tampilkanProduk(); // tampil awal
+    </script>
+  </body>
+</html>
